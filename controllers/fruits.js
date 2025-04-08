@@ -1,24 +1,23 @@
-const getFruit = require('../models/Fruit')
-const Fruit = require('../models/Fruit')
+const Fruit = require("../models/Fruit");
 
-const index = (req, res) => {
+const index = async (req, res) => {
     try {
-        const fruits = Fruit.showAll()
-        res.status(200).send(fruits)
+        const fruits = await Fruit.showAll();
+        res.status(200).send(fruits);
     } catch(err) {
-        res.status(500).send({ error: 'Server Error' })
+        res.status(500).send({ error: "Server error" });
     }
 }
 
-const show = (req, res) => {
-    const name = req.params.name.toLowerCase()
+const show = async (req, res) => {
+    const name = req.params.name.toLowerCase();
+	
     try {
-        // const fruit = Fruit.show(name)
-        const fruit = getFruit(name)
-        res.status(200).send(fruit)
-    } catch(err){
-        res.status(404).send({ error: err })
+        const fruit = await Fruit.show(name);
+        res.status(200).send(fruit);
+    } catch(err) {
+	    res.status(404).send({error: err})
     }
 }
 
-module.exports = { index, show }
+module.exports = {index, show}

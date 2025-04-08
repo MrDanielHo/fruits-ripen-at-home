@@ -1,14 +1,28 @@
-const fruits = require('../fruits.json')
+const fruits = require("../fruits.json");
 
-function getFruit (name) {
+class Fruit {
+    constructor(fruit) {
+        this.genus = fruit.genus;
+        this.name = fruit.name;
+        this.id = fruit.id;
+        this.family = fruit.family;
+        this.order = fruit.order;
+        this.nutritions = fruit.nutritions;
+    }
 
-    const fruit = fruits.find((fruit) => fruit.name.toLowerCase() == name)
+    static showAll() {
+        return fruits.map(q => new Fruit(q));
+    }
 
-    if (fruit == undefined) {
-        res.status(404).send('The fruit does not exist.')
-    } else {
-        res.status(200).send(fruit)
+    static show(name) {
+        const fruit = fruits.find((fruit) => fruit.name.toLowerCase() == name);
+
+        if (fruit) {
+            return new Fruit(fruit);
+        } else {
+            throw "The fruit doesn't exist.";
+        }
     }
 }
 
-module.exports = getFruit
+module.exports = Fruit;
