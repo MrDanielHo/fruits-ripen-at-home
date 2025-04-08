@@ -1,3 +1,4 @@
+const getFruit = require('../models/Fruit')
 const Fruit = require('../models/Fruit')
 
 const index = (req, res) => {
@@ -12,7 +13,8 @@ const index = (req, res) => {
 const show = (req, res) => {
     const name = req.params.name.toLowerCase()
     try {
-        const fruit = Fruit.show(name)
+        // const fruit = Fruit.show(name)
+        const fruit = getFruit(name)
         res.status(200).send(fruit)
     } catch(err){
         res.status(404).send({ error: err })
